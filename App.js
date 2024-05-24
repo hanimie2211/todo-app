@@ -14,32 +14,41 @@ export default function App() {
     <View style={styles.container}>
 
       {/* Today's Task*/}
-      <View style={styles.tasksWrapper}> 
-        <Text style={styles.sectionTitle}> Today's tasks</Text>
-        <View style={styles.items}>
-
-          {/* Where the task will go */}
-          <Task text={'Sample Task 1'} />
-          <Task text={'Sample Task 2'} />
-        </View>
-
-      </View>
-
-
-
-      {/* Write a task */}
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeTaskWrapper}
-      >
-          <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={(text) => setTask(text)} />
-
-          <TouchableOpacity onPress={() => handleAddTask()}>
-            <View style={styles.addWrapper}>
-              <Text style={styles.addText}>+</Text>
+      <View>
+        <View style={styles.tasksWrapper}> 
+          <View>
+            <View>
+              <Text style={styles.sectionTitle}> Today's tasks</Text>
             </View>
-          </TouchableOpacity>
-      </KeyboardAvoidingView>
+            <View style={styles.items}>
+
+              {/* Where the task will go */}
+              <View>
+                <Task text={'Sample Task 1'} />
+              </View>
+              <View>
+                <Task text={'Sample Task 2'} />
+              </View>
+            </View>
+          </View>
+
+        </View>
+        {/* Write a task */}
+        <View>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.writeTaskWrapper}
+          >
+              <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={(text) => setTask(text)} />
+
+              <TouchableOpacity onPress={() => handleAddTask()}>
+                <View style={styles.addWrapper}>
+                  <Text style={styles.addText}>+</Text>
+                </View>
+              </TouchableOpacity>
+          </KeyboardAvoidingView>
+        </View>
+      </View>
     </View>
   );
 }
