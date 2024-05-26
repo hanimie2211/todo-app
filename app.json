@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "todolist.app"
+      "package": "com.yourcompany.todolist",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
