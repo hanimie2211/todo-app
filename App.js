@@ -2,13 +2,29 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { Platform, StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import Task from './components/task';
+import { Video } from 'expo-av';
+import { Button } from 'react-native-web';
 
 export default function App() {
   const [task, setTask] = useState();
+  const video = React.useRef(null);
+  const [status, setStatus] = useState({});
 
   const handleAddTask = () => {
     console.log(task);
   }
+
+  const handlePlayFromPosition = () => {
+    if (video.current) {
+      video.current.playFromPositionAsync(5000);
+    }
+  };
+
+  const handleToggleLooping = () => {
+    if (video.current) {
+      video.current.setIsLoopingAsync(!status.isLooping);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -49,6 +65,25 @@ export default function App() {
           </KeyboardAvoidingView>
         </View>
       </View>
+      <View style={styles.container}>
+          <Video
+            ref={video}
+            style={styles.video}
+            source={{uri: "./assets/demo.mp4"}}
+            useNativeControls
+            resizeMode='contain'
+            isLooping
+            onPlaybackStatusUpdate={setStatus}
+          />
+          <View style={styles.buttons}>
+            <TouchableOpacity onPress={handlePlayFromPosition}>
+              <Text>Play from 5s</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleToggleLooping}>
+              <Text>{status.isLooping ? "Set to not loop" : "Set to loop"}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
     </View>
   );
 }
@@ -57,6 +92,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#E8EAED',
+  },
+  video: {
+    flex: 1,
+    alignSelf: 'stretch',
+  },
+  buttons: {
+    margin: 15,
   },
   tasksWrapper: {
     paddingTop: 80,
